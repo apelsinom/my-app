@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-export const OnOff = () => {
+export const UncontrolOnOff = () => {
     let [on, setOn] = useState<boolean>(false)
 
     const switchContainer = {

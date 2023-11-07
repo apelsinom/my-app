@@ -1,14 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import {UncontrolledAccordion} from "./components/UncontrolledAccordion";
 import {UncontrolledRating} from "./components/UncontrolledRating";
-import {OnOff} from "./components/OnOff";
+import {UncontrolOnOff} from "./components/UncontrolOnOff";
+import styled from "styled-components";
+import {ControlledRating, RatingValueType} from "./components/ControlledRating";
+import {ControlAccordion} from "./components/ControlAccordion";
+import {ControlOnOff} from "./components/ControlOnOff";
 
 function App() {
+
+    let [ratingValue, setRatingValue] = useState<RatingValueType>(0)
+
+    let [AccordionCollapsed, setAccordionCollapsed] = useState<boolean>(false)
+
+    let [on, setOn] = useState<boolean>(false)
+
     return (
-        <div>
+        <Container>
             <PageTitle title={'This is component'}/>
             <PageTitle title={'My friends'}/>
+            <ControlOnOff on={on} setOn={setOn}/>
+            <ControlOnOff on={on} setOn={setOn}/>
+            <ControlAccordion titleValue={'Menu'}
+                              onClick={()=> {setAccordionCollapsed(!AccordionCollapsed)}}
+                              AccordionCollapsed={AccordionCollapsed}/>
+            <ControlAccordion titleValue={'Users'}
+                              onClick={()=> {setAccordionCollapsed(!AccordionCollapsed)}}
+                              AccordionCollapsed={AccordionCollapsed}/>
+            <ControlledRating value={ratingValue}
+                              onClick={setRatingValue}/>
             Article 1
             <UncontrolledAccordion titleValue={'Menu'}/>
             <UncontrolledAccordion titleValue={'Users'}/>
@@ -19,9 +40,9 @@ function App() {
             <UncontrolledRating/>
             <UncontrolledRating/>
             <UncontrolledRating/>
-            <OnOff />
-            <OnOff />
-        </div>
+            <UncontrolOnOff />
+            <UncontrolOnOff />
+        </Container>
     );
 }
 
@@ -33,3 +54,9 @@ function PageTitle(props: PageTitlePropsType) {
 }
 
 export default App;
+
+const Container = styled.div`
+  margin: 20px auto;
+  width: 300px;
+  text-align: center;
+`

@@ -2,26 +2,29 @@ import React, {useState} from "react";
 
 export function UncontrolledRating() {
 
+    let [value, setValue] = useState(0)
+
     return (
         <div>
-            <Star/>
-            <Star/>
-            <Star/>
-            <Star/>
-            <Star/>
+            <Star selected={value > 0} onClickValue={()=>setValue(1)} />
+            <Star selected={value > 1} onClickValue={()=>setValue(2)} />
+            <Star selected={value > 2} onClickValue={()=>setValue(3)} />
+            <Star selected={value > 3} onClickValue={()=>setValue(4)} />
+            <Star selected={value > 4} onClickValue={()=>setValue(5)} />
         </div>
     )
 }
 
-function Star() {
+type PropsType = {
+    selected: boolean
+    onClickValue: () => void
+}
 
-    let [value, setValue] = useState(false)
+function Star(props: PropsType) {
 
-    const onClickValue = () => {
-        setValue(!value)
-    }
-    return <>
-        {value && <span onClick={() => onClickValue()}><b>star </b></span>}
-        {!value && <span onClick={() => onClickValue()}>star </span>}
-    </>
+    return (
+        <span onClick={props.onClickValue}>
+            {props.selected ? <b>star </b> : 'star '}
+        </span>
+    )
 }
